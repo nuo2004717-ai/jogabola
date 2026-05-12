@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>#JogaBola · KWAI · Copa 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════
+   TOKENS
+════════════════════════════════════ */
+:root {
+  --green:   #12A03A;
+  --yellow:  #FFDF00;
+  --blue:    #002776;
+  --kwai:    #FF5200;
+  --kwai2:   #E04500;
+  --cream:   #FFFAF4;
+  --cream2:  #FFF4E6;
+  --cream3:  #FDEBD0;
+  --ink:     #18100A;
+  --ink2:    #5A4630;
+  --ink3:    #A08468;
+  --rule:    #ECD9C2;
+  --gold:    #C98A00;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  background: #1A1208;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 0%, #2D1F0E 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 100%, #0A1F0A 0%, transparent 60%);
+  min-height: 100vh;
+  padding: 48px 16px 80px;
+}
+
+/* ════════════════════════════════════
+   POSTER SHELL
+════════════════════════════════════ */
+.poster {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--cream);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 4px 8px rgba(0,0,0,0.2),
+    0 16px 40px rgba(0,0,0,0.3),
+    0 48px 96px rgba(0,0,0,0.3);
+}
+
+/* ════════════════════════════════════
+   SCROLL ANIMATIONS
+════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+              transform 0.65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.in { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+
+/* ════════════════════════════════════
+   HERO
+════════════════════════════════════ */
+.hero {
+  background: var(--green);
+  background-image:
+    radial-gradient(ellipse 70% 100% at 100% 50%, rgba(255,223,0,.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 80% at 0% 100%, rgba(0,0,0,.18) 0%, transparent 60%),
+    repeating-linear-gradient(
+      135deg,
+      transparent 0, transparent 52px,
+      rgba(0,0,0,.032) 52px, rgba(0,0,0,.032) 104px
+    );
+  position: relative;
+  overflow: hidden;
+}
+
+/* Faixa tricolor no topo */
+.hero-tricolor {
+  display: flex;
+  height: 7px;
+}
+.hero-tricolor span { flex: 1; }
+.hero-tricolor .c1 { background: var(--green); }
+.hero-tricolor .c2 { background: var(--yellow); }
+.hero-tricolor .c3 { background: var(--blue); }
+
+/* Ghost background text */
+.hero-ghost {
+  position: absolute;
+  bottom: -28px;
+  right: -24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 200px;
+  line-height: 0.85;
+  color: rgba(255,255,255,.055);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  z-index: 1;
+  user-select: none;
+}
+
+/* Arco decorativo */
+.hero-arc {
+  position: absolute;
+  top: -80px; left: -80px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  border: 52px solid rgba(255,255,255,.05);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-inner {
+  padding: 56px 64px 60px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Badge Kwai */
+.kwai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--kwai);
+  padding: 7px 16px 7px 11px;
+  border-radius: 100px;
+  margin-bottom: 26px;
+  box-shadow: 0 3px 16px rgba(255,82,0,.45), 0 1px 3px rgba(0,0,0,.2);
+}
+.kwai-dot {
+  width: 7px; height: 7px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.75)} }
+.kwai-badge span {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+}
+
+/* Título */
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(90px, 15vw, 136px);
+  line-height: .85;
+  letter-spacing: .015em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-title .w { color: white; display: block; }
+.hero-title .y {
+  color: var(--yellow);
+  display: block;
+  text-shadow: 0 4px 24px rgba(255,223,0,.28);
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 10px;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: rgba(255,255,255,.75);
+  max-width: 400px;
+  line-height: 1.65;
+}
+
+/* Stats */
+.hero-stats {
+  background: var(--yellow);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  position: relative;
+  z-index: 2;
+}
+.h-stat { padding: 22px 32px; position: relative; }
+.h-stat + .h-stat::before {
+  content: '';
+  position: absolute; left: 0; top: 22%; bottom: 22%;
+  width: 1.5px; background: rgba(0,39,118,.12);
+}
+.h-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  color: var(--blue);
+  letter-spacing: .02em;
+  line-height: 1;
+}
+.h-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(0,39,118,.48);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  margin-top: 5px;
+}
+
+/* ════════════════════════════════════
+   SECTIONS
+════════════════════════════════════ */
+.sec { padding: 60px 64px; }
+.sec-alt { background: var(--cream2); }
+
+.sec-label {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.sec-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  line-height: .9;
+  letter-spacing: -.02em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--rule);
+  user-select: none;
+  flex-shrink: 0;
+}
+.sec-info {
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--kwai);
+  flex: 1;
+}
+.sec-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--kwai);
+}
+
+/* Body text */
+.bp {
+  font-size: 16.5px;
+  line-height: 1.78;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.bp:last-child { margin-bottom: 0; }
+.bp strong { font-weight: 700; }
+
+.opener {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: var(--kwai);
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.divider {
+  width: 40px; height: 3px;
+  background: linear-gradient(90deg, var(--kwai), transparent);
+  border-radius: 3px;
+  margin: 36px 0;
+}
+
+/* ════════════════════════════════════
+   REWARDS
+════════════════════════════════════ */
+.rewards-stack { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+
+.reward-tier {
+  display: grid;
+  grid-template-columns: 110px 1fr 1fr;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+  transition: transform .2s, box-shadow .2s;
+}
+.reward-tier:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,.12);
+}
+
+.rrank {
+  padding: 26px 16px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px;
+}
+.t1 .rrank { background: linear-gradient(160deg, #DBA520, #A06800); }
+.t2 .rrank { background: linear-gradient(160deg, #FF6520, var(--kwai2)); }
+.t3 .rrank { background: linear-gradient(160deg, #9C8A78, #6E5C4C); }
+
+.rmedal { font-size: 28px; line-height: 1; }
+.rrange {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: rgba(255,255,255,.92);
+  letter-spacing: .02em;
+}
+.rlabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,.55);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.rcash, .rtraffic {
+  padding: 22px 26px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.rcash { background: white; }
+.rtraffic { background: var(--cream); border-left: 1px solid var(--rule); }
+
+.rcash strong, .rtraffic strong {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  color: var(--ink);
+  letter-spacing: .02em;
+  line-height: 1;
+}
+.rcash span, .rtraffic span {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-top: 6px;
+  display: block;
+}
+
+.reward-note {
+  margin-top: 18px;
+  padding: 14px 20px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.65;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════
+   SCRIPT CARDS
+════════════════════════════════════ */
+.scripts { display: flex; flex-direction: column; gap: 14px; }
+
+.script-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  transition: box-shadow .25s;
+}
+.script-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.11); }
+
+.script-head {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  background: #241710;
+  user-select: none;
+  transition: background .25s;
+}
+.script-card.open .script-head { background: var(--kwai); }
+.script-head:hover { filter: brightness(1.1); }
+
+.script-ver {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px;
+  letter-spacing: .02em;
+  flex-shrink: 0;
+  transition: background .25s;
+}
+.script-card.open .script-ver { background: rgba(0,0,0,.18); }
+
+.script-title { font-size: 16px; font-weight: 700; color: white; flex: 1; }
+.script-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,.5);
+  letter-spacing: .05em;
+  margin-top: 3px;
+}
+
+.toggle {
+  color: rgba(255,255,255,.55);
+  font-size: 24px;
+  line-height: 1;
+  transition: transform .3s cubic-bezier(.22,1,.36,1), color .2s;
+}
+.script-card.open .toggle { transform: rotate(45deg); color: white; }
+
+.script-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s cubic-bezier(.22,1,.36,1);
+  background: white;
+}
+.script-card.open .script-body { max-height: 900px; }
+
+.script-summary {
+  padding: 18px 24px;
+  font-size: 14px;
+  color: var(--ink2);
+  line-height: 1.65;
+  background: #FAFAF8;
+  border-bottom: 1px solid #EEE6DC;
+}
+.script-summary strong { color: var(--kwai); }
+
+/* Table */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tbl th {
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ink3);
+  padding: 12px 18px 10px;
+  border-bottom: 1px solid #EEE6DC;
+  background: #FAFAF8;
+}
+.tbl td {
+  padding: 13px 18px;
+  border-bottom: 1px solid #F4EDE4;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.tbl tbody tr:last-child td { border-bottom: none; }
+.tbl tbody tr:nth-child(even) td { background: #FDFBF8; }
+.tbl tbody tr:hover td { background: #FFF8F2; }
+
+.col-time {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px; font-weight: 700;
+  color: var(--kwai); white-space: nowrap; width: 52px;
+}
+.col-line { font-weight: 500; font-style: italic; color: var(--ink); }
+.col-note { color: var(--ink2); font-size: 12.5px; }
+.star { color: var(--kwai); }
+
+/* Tip */
+.tip {
+  margin-top: 22px;
+  padding: 20px 24px;
+  background: white;
+  border-radius: 12px;
+  border-left: 4px solid var(--kwai);
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--ink2);
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+
+/* ════════════════════════════════════
+   CTA BLOCK
+════════════════════════════════════ */
+.cta {
+  background: var(--kwai);
+  background-image:
+    radial-gradient(ellipse 60% 100% at 100% 50%, rgba(255,255,255,.08) 0%, transparent 70%),
+    repeating-linear-gradient(
+      135deg,
+      transparent 0, transparent 40px,
+      rgba(0,0,0,.03) 40px, rgba(0,0,0,.03) 80px
+    );
+  padding: 32px 64px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '⚽';
+  position: absolute;
+  right: -20px; bottom: -40px;
+  font-size: 160px;
+  opacity: .07;
+  pointer-events: none;
+}
+
+.cta-left {}
+.cta-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 6px;
+}
+.cta-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: white;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.cta-desc { font-size: 14.5px; color: rgba(255,255,255,.75); max-width: 480px; line-height: 1.55; }
+
+/* ════════════════════════════════════
+   FOOTER
+════════════════════════════════════ */
+.footer {
+  background: #120C06;
+  padding: 28px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.footer::before {
+  content: '#JOGABOLA';
+  position: absolute;
+  left: -10px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  color: rgba(255,255,255,.03);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: .05em;
+}
+
+/* Tricolor stripe at bottom */
+.footer-tricolor {
+  display: flex; height: 4px; width: 100%;
+  position: absolute; bottom: 0; left: 0;
+}
+.footer-tricolor span { flex: 1; }
+.footer-tricolor .c1 { background: var(--green); }
+.footer-tricolor .c2 { background: var(--yellow); }
+.footer-tricolor .c3 { background: var(--blue); }
+
+.footer-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--kwai);
+  letter-spacing: .04em;
+  position: relative; z-index: 2;
+}
+.footer-brand small {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,.28);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-weight: 400;
+  margin-top: 5px;
+}
+.footer-right { text-align: right; position: relative; z-index: 2; }
+.footer-rlabel {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,.3);
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  margin-bottom: 5px;
+}
+.footer-rnum { font-size: 15px; font-weight: 600; color: rgba(255,255,255,.8); }
+
+/* ════════════════════════════════════
+   PRINT
+════════════════════════════════════ */
+@media print {
+  @page { size: A4 portrait; margin: 0; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body { background: white !important; padding: 0; }
+  .poster { border-radius: 0; box-shadow: none; max-width: 100%; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .script-body { max-height: none !important; display: block !important; }
+  .toggle { display: none; }
+  .script-card, .reward-tier, .tbl tr { break-inside: avoid; }
+  .cta { break-inside: avoid; }
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════ */
+@media (max-width: 640px) {
+  body { padding: 20px 10px 48px; }
+  .hero-inner, .sec, .cta, .footer { padding-left: 28px; padding-right: 28px; }
+  .hero-title { font-size: 80px; }
+  .reward-tier { grid-template-columns: 80px 1fr; }
+  .rtraffic { grid-column: 2; }
+  .cta { flex-direction: column; }
+  .cta-right { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ══ HERO ══ -->
+  <header class="hero">
+    <div class="hero-tricolor"><span class="c1"></span><span class="c2"></span><span class="c3"></span></div>
+    <div class="hero-ghost">⚽ COPA 2026</div>
+    <div class="hero-arc"></div>
+    <div class="hero-inner">
+      <div class="kwai-badge">
+        <div class="kwai-dot"></div>
+        <span>KWAI Brasil · Desafio Oficial</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="w">#Joga</span>
+        <span class="y">Bola</span>
+      </h1>
+      <div class="hero-eyebrow">Copa do Mundo 2026</div>
+      <p class="hero-desc">Mostre sua criatividade, passe a bola e concorra a prêmios em dinheiro + tráfego oficial do Kwai.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-num">R$15.500</div><div class="h-stat-label">em prêmios</div></div>
+      <div class="h-stat"><div class="h-stat-num">5M+</div><div class="h-stat-label">views de tráfego</div></div>
+      <div class="h-stat"><div class="h-stat-num">Top 50</div><div class="h-stat-label">criadores premiados</div></div>
+    </div>
+  </header>
+
+  <!-- ══ 01 · RECONHECIMENTO ══ -->
+  <section class="sec">
+    <div class="sec-label reveal">
+      <div class="sec-num">01</div>
+      <div class="sec-info"><div class="sec-title">Reconhecimento</div></div>
+    </div>
+    <div class="opener reveal reveal-d1">Olá, @criadores! ⚽</div>
+    <p class="bp reveal reveal-d1">A equipe do Kwai passou pelos seus vídeos sobre <strong>futebol e Copa do Mundo</strong> aqui na plataforma — e ficamos realmente impressionados com o que você faz.</p>
+    <p class="bp reveal reveal-d2">Seu jeito de criar conteúdo tem uma identidade única. É exatamente o tipo de criador que queremos ver brilhar nessa temporada de Copa.</p>
+    <div class="divider reveal reveal-d3"></div>
+  </section>
+
+  <!-- ══ 02 · CONVITE & PRÊMIOS ══ -->
+  <section class="sec sec-alt">
+    <div class="sec-label reveal">
+      <div class="sec-num">02</div>
+      <div class="sec-info"><div class="sec-title">Convite &amp; Prêmios</div></div>
+    </div>
+    <p class="bp reveal reveal-d1">Por isso, queremos te convidar oficialmente para o <strong>Desafio #JogaBola</strong> do Kwai 🏆</p>
+    <p class="bp reveal reveal-d1">Você cria um vídeo curto no estilo "passe da bola", marca outros criadores para continuar a corrente, e concorre a prêmios em dinheiro + tráfego oficial da plataforma. As recompensas são para os <strong>top 50 criadores</strong> com melhor desempenho combinado:</p>
+
+    <div class="rewards-stack">
+      <div class="reward-tier t1 reveal reveal-d1">
+        <div class="rrank"><div class="rmedal">🥇</div><div class="rrange">01–05</div><div class="rlabel">Top 5</div></div>
+        <div class="rcash"><strong>R$ 1.000</strong><span>em dinheiro</span></div>
+        <div class="rtraffic"><strong>500K</strong><span>views tráfego oficial</span></div>
+      </div>
+      <div class="reward-tier t2 reveal reveal-d2">
+        <div class="rrank"><div class="rmedal">🥈</div><div class="rrange">06–20</div><div class="rlabel">Top 20</div></div>
+        <div class="rcash"><strong>R$ 500</strong><span>em dinheiro</span></div>
+        <div class="rtraffic"><strong>200K</strong><span>views tráfego oficial</span></div>
+      </div>
+      <div class="reward-tier t3 reveal reveal-d3">
+        <div class="rrank"><div class="rmedal">🥉</div><div class="rrange">21–50</div><div class="rlabel">Top 50</div></div>
+        <div class="rcash"><strong>R$ 100</strong><span>em dinheiro</span></div>
+        <div class="rtraffic"><strong>100K</strong><span>views tráfego oficial</span></div>
+      </div>
+    </div>
+    <div class="reward-note reveal">📌 Prêmios distribuídos após divulgação oficial dos vencedores. Tráfego corresponde à exposição interna da plataforma, válida apenas dentro do Kwai.</div>
+  </section>
+
+  <!-- ══ 03 · GUIA DE VÍDEO ══ -->
+  <section class="sec">
+    <div class="sec-label reveal">
+      <div class="sec-num">03</div>
+      <div class="sec-info"><div class="sec-title">Guia de Vídeo</div></div>
+    </div>
+    <p class="bp reveal reveal-d1" style="margin-bottom:32px;">A Copa do Mundo 2026 já balançou a rede aqui no Kwai e queremos ver a nossa torcida unida como nunca! Não importa se você é craque de bola ou se o seu talento é na cozinha, nos estudos ou naquela resenha épica com os amigos. Escolha o formato que mais combina com você, solte a criatividade e mostre sua paixão pelo Brasil:</p>
+
+    <div class="scripts">
+
+      <div class="script-card open reveal reveal-d1">
+        <div class="script-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="script-ver">01</div>
+          <div style="flex:1">
+            <div class="script-title">Solo com a bola</div>
+            <div class="script-meta">15–20s · você tem uma bola em mãos</div>
+          </div>
+          <span class="toggle">+</span>
+        </div>
+        <div class="script-body">
+          <div class="script-summary"><strong>Quando usar:</strong> ideal para criadores solo que querem uma execução rápida e limpa. A bola entra rolando ou voando, você se apresenta, dá um recado e chuta de volta para fora do quadro.</div>
+          <table class="tbl">
+            <thead><tr><th>Tempo</th><th>Cena &amp; Ação</th><th>Fala</th><th>Dica</th></tr></thead>
+            <tbody>
+              <tr><td class="col-time">0–3s</td><td>Bola entra rolando/voando pela borda do quadro</td><td class="col-line">—</td><td class="col-note">Começa quando a bola entra — recebe o passe do vídeo anterior</td></tr>
+              <tr><td class="col-time">4–7s</td><td>Domina/segura a bola e olha para a câmera</td><td class="col-line">Eu sou [seu nome]</td><td class="col-note">Apresentação curta e direta</td></tr>
+              <tr><td class="col-time">8–12s</td><td>Olha para a câmera, dá o recado e indica o próximo</td><td class="col-line">Vai, Brasil! Passo pra [característica]… @XXX!</td><td class="col-note">Personalize o recado e mencione quem receberá o passe</td></tr>
+              <tr><td class="col-time">13–17s</td><td>Chuta ou arremessa a bola para fora do quadro</td><td class="col-line">—</td><td class="col-note"><span class="star">★</span> A bola deve sair do quadro para facilitar o corte com o próximo vídeo</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="script-card reveal reveal-d2">
+        <div class="script-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="script-ver">02</div>
+          <div style="flex:1">
+            <div class="script-title">Time, família ou amigos</div>
+            <div class="script-meta">20–30s · grupo com 3–5 pessoas e uma bola</div>
+          </div>
+          <span class="toggle">+</span>
+        </div>
+        <div class="script-body">
+          <div class="script-summary"><strong>Quando usar:</strong> perfeito para contas coletivas, estúdios, famílias ou grupos de amigos. A bola circula entre todos antes de sair do quadro — quanto mais personalidade em cada apresentação, melhor.</div>
+          <table class="tbl">
+            <thead><tr><th>Tempo</th><th>Cena &amp; Ação</th><th>Fala</th><th>Dica</th></tr></thead>
+            <tbody>
+              <tr><td class="col-time">0–3s</td><td>3–5 pessoas em roda; o primeiro abre a cena</td><td class="col-line">Olha o time! Vamos passar a bola!</td><td class="col-note">Abertura coletiva, energia alta</td></tr>
+              <tr><td class="col-time">4–15s</td><td>Bola passa entre todos (A→B→C→A); câmera segue quem está com ela</td><td class="col-line">Cada um diz nome + característica engraçada</td><td class="col-note">Ritmo rápido — quanto mais criativa a descrição, melhor</td></tr>
+              <tr><td class="col-time">16–18s</td><td>O último chuta a bola para fora do quadro</td><td class="col-line">Agora a bola é sua, @XXX!</td><td class="col-note">Marca um criador externo para continuar a corrente</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="script-card reveal reveal-d3">
+        <div class="script-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="script-ver">03</div>
+          <div style="flex:1">
+            <div class="script-title">Versão criativa — sem bola</div>
+            <div class="script-meta">20–30s · qualquer objeto redondo vira a "bola"</div>
+          </div>
+          <span class="toggle">+</span>
+        </div>
+        <div class="script-body">
+          <div class="script-summary"><strong>Quando usar:</strong> não tem bola? Sem problema. Use qualquer objeto redondo — pão de queijo, brigadeiro, bola de meia, melancia, caderno enrolado. A criatividade é o campo.</div>
+          <table class="tbl">
+            <thead><tr><th>Tempo</th><th>Cena &amp; Ação</th><th>Fala</th><th>Dica</th></tr></thead>
+            <tbody>
+              <tr><td class="col-time">0–3s</td><td>Se apresenta e mostra o "objeto-bola" que vai passar</td><td class="col-line">Apresentação + qual é a sua "bola"</td><td class="col-note">Chef? Doce redondo. Mãe? Brinquedo. Estudante? Caderno.</td></tr>
+              <tr><td class="col-time">4–15s</td><td>Objeto passa para o próximo, que pode manter ou trocar por outro item</td><td class="col-line">Cada um diz nome e o que está passando</td><td class="col-note">Pode ter transformação visual — o melão vira coco, o coco vira bola de meia</td></tr>
+              <tr><td class="col-time">16–18s</td><td>O último faz o "gol" criativo</td><td class="col-line">—</td><td class="col-note"><span class="star">★</span> Comer o doce, encertar num cesto, jogar na lixeira — seja criativo!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tip reveal">💡 Esses formatos são só uma inspiração — se você tiver uma ideia ainda mais criativa, vai fundo! O importante é não deixar a bola parar!</div>
+  </section>
+
+  <!-- ══ CTA ══ -->
+  <section class="cta reveal">
+    <div class="cta-left">
+      <div class="cta-eyebrow">Tá esperando o quê?</div>
+      <div class="cta-title">Bora jogar! ⚽</div>
+      <p class="cta-desc">Grave seu vídeo, passe a bola e concorra aos prêmios do Desafio #JogaBola. Nossa equipe entra em contato com todos os detalhes.</p>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="footer">
+    <div class="footer-tricolor"><span class="c1"></span><span class="c2"></span><span class="c3"></span></div>
+    <div class="footer-brand">Kwai Brasil<small>Equipe KSIB · Copa do Mundo 2026</small></div>
+    <div class="footer-right">
+      <div class="footer-rlabel">Contato direto</div>
+      <div class="footer-rnum">📱 +55 84 99686-7434</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

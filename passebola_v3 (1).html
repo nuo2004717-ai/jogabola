@@ -469,6 +469,55 @@ body {
 .col-note { color: var(--ink2); font-size: 12.5px; }
 .star { color: var(--kwai); }
 
+/* Bullet list for concept cards */
+.script-bullets {
+  padding: 16px 24px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.bullet-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--kwai);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.bullet-item p {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* Creators tag */
+.script-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px 18px;
+  flex-wrap: wrap;
+}
+.tag-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--ink3);
+  white-space: nowrap;
+}
+.tag-chips {
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  color: var(--kwai);
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
 /* Tip */
 .tip {
   margin-top: 22px;
@@ -767,6 +816,53 @@ body {
               <tr><td class="col-time">16–18s</td><td>O último faz o "gol" criativo</td><td class="col-line">—</td><td class="col-note"><span class="star">★</span> Comer o doce, encertar num cesto, jogar na lixeira — seja criativo!</td></tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <div class="script-card reveal reveal-d1">
+        <div class="script-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="script-ver">04</div>
+          <div style="flex:1">
+            <div class="script-title">Clima brasileiro / Torcida da Copa</div>
+            <div class="script-meta">Lifestyle · Beleza · Vlog · Creators de rua</div>
+          </div>
+          <span class="toggle">+</span>
+        </div>
+        <div class="script-body">
+          <div class="script-summary"><strong>Quando usar:</strong> mostre o seu jeito mais brasileiro de viver a Copa — com look, energia e amor pela seleção. Qualquer ambiente vira palco.</div>
+          <div class="script-bullets">
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Usar camisa do Brasil, maquiagem verde e amarela, bandeiras e acessórios</p></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Gravar em clima de torcida: rua, bar, festa, estádio, casa com amigos etc.</p></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Mostrar seu jeito mais brasileiro de apoiar a seleção</p></div>
+          </div>
+          <div class="script-tag">
+            <span class="tag-label">Creators indicados</span>
+            <span class="tag-chips">Lifestyle · Beleza · Vlog · Creators de rua</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="script-card reveal reveal-d2">
+        <div class="script-head" onclick="this.parentElement.classList.toggle('open')">
+          <div class="script-ver">05</div>
+          <div style="flex:1">
+            <div class="script-title">Desafio interativo / Storytelling</div>
+            <div class="script-meta">Storytelling · Creators sociais · Creators em geral</div>
+          </div>
+          <span class="toggle">+</span>
+        </div>
+        <div class="script-body">
+          <div class="script-summary"><strong>Quando usar:</strong> quer criar algo maior do que um vídeo só seu? Conecte creators, construa histórias e mostre a energia da Copa passando de pessoa em pessoa.</div>
+          <div class="script-bullets">
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Marcar outro creator no final do vídeo ("Passo pra @XXX")</p></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Fazer corrente entre creators de nichos diferentes</p></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Criar mini histórias usando a passagem da bola</p></div>
+            <div class="bullet-item"><span class="bullet-dot"></span><p>Mostrar a energia da Copa passando de pessoa pra pessoa</p></div>
+          </div>
+          <div class="script-tag">
+            <span class="tag-label">Creators indicados</span>
+            <span class="tag-chips">Storytelling · Creators sociais · Creators em geral</span>
+          </div>
         </div>
       </div>
 
